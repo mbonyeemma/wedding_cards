@@ -64,20 +64,10 @@ export default function Home() {
     };
 
     const shareImage = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Generated Card',
-                text: 'Check out this card I generated!',
-                url: imageURL,
-            }).then(() => {
-                console.log('Thanks for sharing!');
-            }).catch((err) => {
-                console.error('Error sharing:', err);
-            });
-        } else {
-            console.warn('Web Share API is not supported in this browser.');
-        }
-    };
+      const encodedURL = encodeURIComponent(imageURL);
+      const whatsappURL = `https://api.whatsapp.com/send?text=Check out this card I generated! ${encodedURL}`;
+      window.open(whatsappURL, '_blank');
+  };
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
