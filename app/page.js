@@ -43,7 +43,7 @@ export default function Home() {
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
-            const sanitizedName = name.replace(/&/g, 'and');
+            const sanitizedName = name;
             const textX = canvas.width / 1.7;
             const textY = canvas.height / 3;
             ctx.fillText(sanitizedName, textX, textY);
