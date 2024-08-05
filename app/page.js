@@ -50,6 +50,7 @@ export default function Home() {
 
             const dataURL = canvas.toDataURL('image/jpeg');
             setImageURL(dataURL);
+            localStorage.setItem('generatedCard', dataURL); // Save the image to localStorage
             setLoading(false);
         };
     };
@@ -64,10 +65,26 @@ export default function Home() {
     };
 
     const shareImage = () => {
-      const encodedURL = encodeURIComponent(imageURL);
-      const whatsappURL = `https://api.whatsapp.com/send?text=Check out this card I generated! ${encodedURL}`;
-      window.open(whatsappURL, '_blank');
-  };
+        const savedImageURL = localStorage.getItem('generatedCard'); // Retrieve the image from localStorage
+        if (navigator.canShare && navigator.canShare({ files: [] })) {
+            fetch(savedImageURL)
+                .then(res => res.blob())
+                .then(blob => {
+                    const file = new File([blob], `${name}.jpeg`, { type: blob.type });
+                    navigator.share({
+                        title: 'Generated Card',
+                        text: 'Check out this card I generated!',
+                        files: [file],
+                    }).then(() => {
+                        console.log('Thanks for sharing!');
+                    }).catch((err) => {
+                        console.error('Error sharing:', err);
+                    });
+                });
+        } else {
+            alert('Sharing is not supported in your browser. Please download the image and share it manually.');
+        }
+    };
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
@@ -118,4 +135,4 @@ export default function Home() {
             <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
         </div>
     );
-   }
+}
