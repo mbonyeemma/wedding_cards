@@ -79,7 +79,7 @@ export default function Home() {
             </nav>
 
             <div className="py-10 flex flex-col items-center w-full max-w-5xl">
-                <h1 className="text-3xl font-bold mb-5">Dusabe Weds Lydia Card Generator</h1>
+                <h2 className="">Dusabe Weds Lydia Card Generator</h2>
                 <p className="mb-10 text-gray-700 text-center">Enter a name and see the generated card on the right.</p>
                 <div className="flex flex-wrap justify-center gap-10 w-full px-4">
                     <div className="bg-white shadow-md rounded-lg p-5 w-full md:w-1/2 flex flex-col items-center">
